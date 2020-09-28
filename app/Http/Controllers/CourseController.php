@@ -16,6 +16,33 @@ class CourseController extends Controller
         $courses = Course::all();
         return $courses;
     }
+    public function drop(Request $request)
+    {   
+        $validator = Validator::make($request->all(), [
+            'id' => 'required',
+        ]);
+        $coursetodelete = Course::find($request->id);
+        if($coursetodelete){
+            if ($validator->fails()) {
+                return response([
+                    "ok" => false,
+                    'errors' => $validator->errors()
+                ], 200);
+            } else {
+                Course::destroy($request->id);
+                return response([
+                    "ok" => true,
+                    "message" => "course deleted"
+                ], 200);
+            }
+        }else{
+            return response([
+                "ok" => false,
+                "message" => "the course does not exist"
+            ], 200);
+        }
+        
+    }
     public function create(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -51,7 +78,7 @@ class CourseController extends Controller
         } else {
             Course::whereId($request->id)->update($request->all());
             return response([
-                "state" => "ok",
+                "ok" => true,
                 "message" => "course created"
             ], 200);
         }
