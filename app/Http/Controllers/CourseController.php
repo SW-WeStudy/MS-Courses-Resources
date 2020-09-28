@@ -24,26 +24,36 @@ class CourseController extends Controller
         ]);
         if ($validator->fails()) {
             return response([
-                "state" => "error",
-                'errors'=>$validator->errors()
-            ],200);
-        }else{
+                "ok" => false,
+                'errors' => $validator->errors()
+            ], 200);
+        } else {
             Course::create([
                 "name" => $request->name,
                 "forum" => $request->forum
             ]);
             return response([
-                "state" => "ok",
+                "ok" => true,
                 "message" => "course created"
-            ],200);
+            ], 200);
         }
     }
     public function edit(Request $request)
     {
-        Course::whereId($request->id)->update($request->all());
-        return response([
-            "state" => "ok",
-            "message" => "course created"
-        ],200);
+        $validator = Validator::make($request->all(), [
+            'id' => 'required',
+        ]);
+        if ($validator->fails()) {
+            return response([
+                "ok" => false,
+                'errors' => $validator->errors()
+            ], 200);
+        } else {
+            Course::whereId($request->id)->update($request->all());
+            return response([
+                "state" => "ok",
+                "message" => "course created"
+            ], 200);
+        }
     }
 }
