@@ -70,17 +70,29 @@ class CourseController extends Controller
         $validator = Validator::make($request->all(), [
             'id' => 'required',
         ]);
-        if ($validator->fails()) {
+        $coursetoedit = Course::find($request->id);
+        if($coursetoedit){
+            if ($validator->fails()) {
+                return response([
+                    "ok" => false,
+                    'errors' => $validator->errors()
+                ], 200);
+            } else {
+                $coursetoedit->update($request->all());
+                return response([
+                    "ok" => true,
+                    "message" => "course updated"
+                ], 200);
+            }
+        }else{
             return response([
                 "ok" => false,
-                'errors' => $validator->errors()
-            ], 200);
-        } else {
-            Course::whereId($request->id)->update($request->all());
-            return response([
-                "ok" => true,
-                "message" => "course created"
+                "message" => "the course does not exist"
             ], 200);
         }
+    }
+    public function getusers(Request $request){
+        $users =Course::find($request->id)->users;
+        return response($users);
     }
 }

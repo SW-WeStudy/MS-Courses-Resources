@@ -9,8 +9,13 @@ class Course extends Model
 {
     use HasFactory;
     protected $table = 'Course';
+    protected $primaryKey = 'id_course';
     protected $fillable = [
         'name',
         'forum'
     ];
+    public function users()
+    {
+        return $this->hasMany('App\Models\CourseUser','id_course');
+    }
 }

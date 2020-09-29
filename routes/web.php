@@ -16,6 +16,7 @@ use App\Http\Controllers\CourseController;
 */
 
 Route::get("/course/getall", [CourseController::class,'index']);
+Route::get("/course/getusers", [CourseController::class,'getusers']);
 Route::post("/course/create", [CourseController::class,'create']);
 Route::put('/course/edit',[CourseController::class,'edit']);
 Route::delete('/course/delete',[CourseController::class,'drop']);
