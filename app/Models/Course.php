@@ -18,4 +18,8 @@ class Course extends Model
     {
         return $this->hasMany('App\Models\CourseUser','id_course');
     }
+    public function notes()
+    {
+        return $this->hasMany('App\Models\Note','id_course');
+    }
 }
