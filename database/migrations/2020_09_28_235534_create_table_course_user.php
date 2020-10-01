@@ -13,15 +13,17 @@ class CreateTableCourseUser extends Migration
      */
     public function up()
     {
+        if (!Schema::hasTable('user_course')) {
+
         Schema::create('user_course', function (Blueprint $table) {
-            $table->increments('id_user_course');
-            $table->unsignedInteger('id_user');
+            $table->integer('id_user_course')->autoIncrement();
+            $table->integer('id_user');
             $table->integer('id_course');
             $table->foreign('id_course')->references('id_course')->on('course');
             $table->string("rol");
             $table->string("state");
-            $table->timestamps();
         });
+    }
     }
 
     /**

@@ -13,15 +13,17 @@ class CreateNotesTable extends Migration
      */
     public function up()
     {
+        if (!Schema::hasTable('note')) {
+
         Schema::create('note', function (Blueprint $table) {
-            $table->integer('id_note');
+            $table->integer('id_note')->autoIncrement();
             $table->string("content");
-            $table->unsignedInteger('id_user');
+            $table->integer('id_user');
             $table->integer("score")->nullable();
-            $table->unsignedInteger("id_course");
+            $table->integer("id_course");
             $table->foreign('id_course')->references('id_course')->on('course');
-            $table->timestamps();
         });
+    }
     }
 
     /**
