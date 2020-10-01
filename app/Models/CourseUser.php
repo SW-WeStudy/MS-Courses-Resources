@@ -21,4 +21,6 @@ class CourseUser extends Model
     {
         return $this->belongsTo('App\Models\Course','id_course','id_course');
     }
+    public $timestamps = false;
+
 }

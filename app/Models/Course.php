@@ -22,4 +22,6 @@ class Course extends Model
     {
         return $this->hasMany('App\Models\Note','id_course');
     }
+    public $timestamps = false;
+
 }
