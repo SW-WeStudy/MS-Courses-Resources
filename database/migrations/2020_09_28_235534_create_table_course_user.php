@@ -17,7 +17,7 @@ class CreateTableCourseUser extends Migration
             $table->bigIncrements('id_user_course');
             $table->unsignedBigInteger('id_user');
             $table->unsignedBigInteger('id_course');
-            $table->foreign('id_course')->references('id_course')->on('Course');
+            $table->foreign('id_course')->references('id_course')->on('course');
             $table->string("rol");
             $table->string("state");
             $table->timestamps();

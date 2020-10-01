@@ -13,13 +13,13 @@ class CreateNotesTable extends Migration
      */
     public function up()
     {
-        Schema::create('Note', function (Blueprint $table) {
+        Schema::create('note', function (Blueprint $table) {
             $table->bigIncrements('id_note');
             $table->string("content");
             $table->unsignedBigInteger('id_user');
             $table->integer("score")->nullable();
             $table->unsignedBigInteger("id_course");
-            $table->foreign('id_course')->references('id_course')->on('Course');
+            $table->foreign('id_course')->references('id_course')->on('course');
             $table->timestamps();
         });
     }
@@ -31,6 +31,6 @@ class CreateNotesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('Note');
+        Schema::dropIfExists('note');
     }
 }
